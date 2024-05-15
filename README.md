@@ -1,5 +1,6 @@
 # Finance_api
 Fabian Hernandez Castaño
+Yeferson Valencia Aristizabal
 
 endpoints utilizados:
 Usuarios:
