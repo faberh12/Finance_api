@@ -3,6 +3,7 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from pydantic import BaseModel, Field, validator
 from typing import Any, Optional
 
+
 tags_metadata = [
     {
         "name": "web",
@@ -12,7 +13,12 @@ tags_metadata = [
         "name": "users",
         "description": "Users handling endpoints",  
     },
+    {
+    "name": "auth",
+    "description": "User's authentication",
+    },
 ]
+
 
 app = FastAPI(openapi_tags=tags_metadata)
 

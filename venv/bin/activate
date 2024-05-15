@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/home/faberh12/code/second-api/venv"
+VIRTUAL_ENV="/home/faberh12/code/nuevo_proyecto1/Finance_api/venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
