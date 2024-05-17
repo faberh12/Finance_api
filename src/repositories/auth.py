@@ -5,10 +5,6 @@ from src.auth import auth_handler
 from src.schemas.user import UserLogin as UserLoginSchema
 from src.schemas.user import UserCreate as UserCreateSchema
 
-class AuthRepository:
-    def __init__(self) -> None:
-        pass
-
 def register_user(self,
     user: UserCreateSchema) -> dict:
     db = SessionLocal()
