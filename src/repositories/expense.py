@@ -1,12 +1,17 @@
-from typing import List
+from typing import List,Annotated
 from src.models.expense import Expense as ExpenseModel
 from src.schemas.expense import Expense
+from fastapi.security import HTTPAuthorizationCredentials
+from fastapi import Depends
+from src.auth.has_access import security
 
 class ExpenseRepository():
   def __init__(self, db) -> None:
     self.db = db
     
   def get_all_expenses(self,
+        credentials: Annotated[HTTPAuthorizationCredentials, 
+        Depends(security)],
         offset: int,
         limit: int
         ) -> List[Expense]:
@@ -21,7 +26,10 @@ class ExpenseRepository():
           element = self.db.query(ExpenseModel).filter(ExpenseModel.id == id).first()
           return element
 
-  def create_expense(self, expense: Expense) -> dict:
+  def create_expense(self,
+        credentials: Annotated[HTTPAuthorizationCredentials, 
+        Depends(security)],
+        expense: Expense) -> dict:
       new_expense = ExpenseModel(**expense.model_dump())
       self.db.add(new_expense)
       self.db.commit()
@@ -30,7 +38,9 @@ class ExpenseRepository():
       
   
     
-def remove_expense(self,id: int) -> dict:
+def remove_expense(self,
+        credentials: Annotated[HTTPAuthorizationCredentials, 
+        Depends(security)],id: int) -> dict:
     element = self.db.query(ExpenseModel).filter(ExpenseModel.id == id).first()
     self.db.delete(element)
     self.db.commit()

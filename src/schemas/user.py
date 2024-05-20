@@ -17,6 +17,15 @@ class Config:
             "is_active": True
             }
     }
+    
+class UserCreate (BaseModel):
+    name: str = Field(min_length=4, max_length=60, title="Name of the user")
+    email: EmailStr = Field(min_length=6, max_length=64, title="Email of the user")
+    password: str = Field(max_length=64, title="Password of the user")
+    
+class UserLogin (BaseModel):
+    email: EmailStr = Field(min_length=6, max_length=64, alias="username", title="Email of the user")
+    password: str = Field(min_length=4, title="Password of the user")
 
 @validator("email")
 def validate_email(cls, value):
