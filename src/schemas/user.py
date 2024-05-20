@@ -1,5 +1,4 @@
-from pydantic import BaseModel, Field, EmailStr
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field,validator, EmailStr
 from typing import Optional
 
 class User (BaseModel):
