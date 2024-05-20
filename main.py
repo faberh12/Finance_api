@@ -5,6 +5,7 @@ from src.routers.report import report_router
 from src.middlewares.errror_handler import ErrorHandler
 from fastapi import FastAPI
 from src.config.database import Base, engine
+from src.routers.auth import auth_router
 
 tags_metadata = [
     {
@@ -45,6 +46,7 @@ Base.metadata.create_all(bind=engine)
 
 app.add_middleware(ErrorHandler)
 
+app.include_router(prefix="", router=auth_router)
 app.include_router(prefix="/users", router=user_router)
 app.include_router(prefix="/incomes", router=income_router)
 app.include_router(prefix="/expenses", router=expense_router)

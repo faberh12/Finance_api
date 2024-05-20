@@ -8,7 +8,7 @@ class User(Base):
   email = Column(String(length=64), unique=True, index=True)
   name = Column(String(length=60))
   password = Column(String(length=64))
-  is_active = Column(Boolean)
+  is_active = Column(Boolean, default=True)
   
   expenses = relationship("Expense", back_populates="owner")
   incomes = relationship("Income", back_populates="owner")

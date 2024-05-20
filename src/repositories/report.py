@@ -1,9 +1,12 @@
-from typing import List
+from typing import List,Annotated
 from src.models.income import Income
 from src.models.expense import Expense
 from src.models.report import Report as ReportModel
 from src.schemas.report import Report
 from sqlalchemy import func, text
+from fastapi.security import HTTPAuthorizationCredentials
+from fastapi import Depends
+from src.auth.has_access import security
 
 
 
@@ -11,7 +14,9 @@ class ReportRepository():
   def __init__(self, db) -> dict:
     self.db = db
     
-  def get_basic_report(self):
+  def get_basic_report(self,
+        credentials: Annotated[HTTPAuthorizationCredentials, 
+        Depends(security)]):
     total_incomes = self.db.query(Income).count() or 0
     total_income_value = self.db.query(func.sum(Income.value)).scalar() or 0
     total_expenses = self.db.query(Expense).count() or 0
@@ -36,7 +41,9 @@ class ReportRepository():
 
     return new_report
   
-  def get_extended_report(self)->dict:
+  def get_extended_report(self,
+        credentials: Annotated[HTTPAuthorizationCredentials, 
+        Depends(security)])->dict:
     income_by_category = self.db.query(
         Income.category,
         func.json_arrayagg(
